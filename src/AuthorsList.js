@@ -1,7 +1,9 @@
 import React from "react";
-
 // Components
 import AuthorCard from "./AuthorCard";
+//Actions
+import { addAuthor } from "./stores/actions";
+import { connect } from "react-redux";
 
 function AuthorsList(props) {
   const authorCards = props.authors.map(author => (
@@ -15,5 +17,17 @@ function AuthorsList(props) {
     </div>
   );
 }
-
-export default AuthorsList;
+const mapStateToProps = state => {
+  return {
+    authors: state.authors
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    addAuthor: () => dispatch(addAuthor())
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AuthorsList);
